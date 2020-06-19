@@ -27,6 +27,7 @@ function createDivs(n) {
             div.id = `box-${i}-${j}`;
             div.style.gridColumn = `${i} / ${i+1}`;
             div.style.gridRow = `${j} / ${j+1}`;
+            div.style.backgroundColor = 'white';
             canvas.appendChild(div);
         }
     }

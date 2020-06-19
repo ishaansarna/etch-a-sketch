@@ -1,5 +1,9 @@
 body {
     #overflow: hidden;
+    background-color: #fffce6;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .wrapper {
