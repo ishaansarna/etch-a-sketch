@@ -10,17 +10,16 @@ const colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
 document.addEventListener('DOMContentLoaded', () => {
-    createDivs();
-    const boxes = document.getElementsByClassName('draw-box');
-    Array.from(boxes).forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-            el.style.backgroundColor = colorArray[Math.floor(Math.random() * 50)];
-        })
-    })
+    const boxes = createDivs(16);
+    changeColor(boxes);
+    document.getElementById('reset').addEventListener('click', reset);
 })
 
+function createDivs(n) {
+    const canvas = document.getElementById('canvas');
+    canvas.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+    canvas.style.gridTemplateRows = `repeat(${n}, 1fr)`;
 
-function createDivs(n=16) {
     for (let i = 1; i<=n; i++) {
         for (let j = 1; j<=n; j++) {
             const div = document.createElement("div");
@@ -28,7 +27,27 @@ function createDivs(n=16) {
             div.id = `box-${i}-${j}`;
             div.style.gridColumn = `${i} / ${i+1}`;
             div.style.gridRow = `${j} / ${j+1}`;
-            document.getElementById('draw-space').appendChild(div);
+            canvas.appendChild(div);
         }
     }
+    return document.getElementsByClassName('draw-box');
+}
+
+function changeColor(boxes) {
+    Array.from(boxes).forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+            el.style.backgroundColor = colorArray[Math.floor(Math.random() * 50)];
+        })
+    })
+}
+
+function reset() {
+    let canvas = document.getElementById('canvas');
+    while (canvas.firstChild) {
+        canvas.removeChild(canvas.firstChild);
+    }
+    console.log('pressed reset');
+    const n = prompt('Please enter the number of rows/columns (<100)', '16');
+    const boxes = createDivs(n);
+    changeColor(boxes);
 }
